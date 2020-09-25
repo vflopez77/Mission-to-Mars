@@ -6,8 +6,9 @@ from splinter import Browser
 from bs4 import BeautifulSoup as soup
 import pandas as pd
 
-# Path to chromedriver
-!which chromedriver
+def scrape_all():
+   # Initiate headless driver for deployment
+   browser = Browser("chrome", executable_path="chromedriver", headless=True)
 
 # Set the executable path and initialize the chrome browser in splinter
 executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
@@ -77,7 +78,7 @@ def mars_facts():
     try:
         # Get HTML facts table as DataFrame
         df = pd.read_html('http://space-facts.com/mars/')[0]
-        
+
     except BaseException:
         return None
 

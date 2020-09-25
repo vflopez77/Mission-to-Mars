@@ -8,8 +8,8 @@ import pandas as pd
 import datetime as dt
 
 def scrape_all():
-   # Initiate headless driver for deployment
-   browser = Browser("chrome", executable_path="chromedriver", headless=True)
+    # Initiate headless driver for deployment
+    browser = Browser("chrome", executable_path="chromedriver", headless=True)
 
     # Get new News
     news_title, news_paragraph = mars_news(browser)
@@ -24,8 +24,8 @@ def scrape_all():
     }
 
     # Stop webdriver and return data
-   browser.quit()
-   return data
+    browser.quit()
+    return data
 
 # Set the executable path and initialize the chrome browser in splinter
 #executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
@@ -58,7 +58,7 @@ def mars_news(browser):
     return news_title, news_p
 
 # ## JPL Space Images Featured Image
-def featured_image(browser)
+def featured_image(browser):
     # Visit URL
     url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
     browser.visit(url)

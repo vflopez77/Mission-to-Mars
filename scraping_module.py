@@ -14,15 +14,11 @@ def scrape_all():
     # Get new News
     news_title, news_paragraph = mars_news(browser)
 
-    # Get featured image
-    img_url, image_title = featured_image(browser)
-
     # Run all scraping functions and store results in dictionary
     data = {
         "news_title": news_title,
         "news_paragraph": news_paragraph,
-        "featured_title": image_title,
-        "featured_image": img_url,
+        "featured_image": featured_image(browser),
         "facts": mars_facts(),
         "last_modified": dt.datetime.now()
     }
@@ -30,6 +26,10 @@ def scrape_all():
     # Stop webdriver and return data
     browser.quit()
     return data
+
+# Set the executable path and initialize the chrome browser in splinter
+#executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
+#browser = Browser('chrome', **executable_path)
 
 def mars_news(browser):
 
@@ -78,22 +78,16 @@ def featured_image(browser):
 
     # Add try/except for error handling
     try:
-
-        # Get the Image Title
-        image_title = img_soup.select("h1", class_="media_feature_title")[0].text
         # Find the relative image url
         img_url_rel = img_soup.select_one('figure.lede a img').get("src")
 
     except AttributeError:
         return None
-    
-    # Getting rid of tabs, newlines, and leading and trailing spaces
-    image_title = image_title.replace("\t","").replace("\n","").lstrip().rstrip()
-     
+
     # Use the base URL to create an absolute URL
     img_url = f'https://www.jpl.nasa.gov{img_url_rel}'
     
-    return img_url, image_title
+    return img_url
 
 # ## Mars Facts
 def mars_facts():

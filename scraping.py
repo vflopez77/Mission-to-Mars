@@ -79,19 +79,19 @@ def featured_image(browser):
     # Add try/except for error handling
     try:
 
-        # Get the Image Title
-        image_title = img_soup.select("h1", class_="media_feature_title")[0].text
         # Find the relative image url
         img_url_rel = img_soup.select_one('figure.lede a img').get("src")
-
+        # Get the Image Title
+        image_title = img_soup.select("h1", class_="media_feature_title")[0].text
+  
     except AttributeError:
         return None
     
-    # Getting rid of tabs, newlines, and leading and trailing spaces
-    image_title = image_title.replace("\t","").replace("\n","").lstrip().rstrip()
-     
     # Use the base URL to create an absolute URL
     img_url = f'https://www.jpl.nasa.gov{img_url_rel}'
+
+    # Getting rid of tabs, newlines, and leading and trailing spaces
+    image_title = image_title.replace("\t","").replace("\n","").lstrip().rstrip()
     
     return img_url, image_title
 
